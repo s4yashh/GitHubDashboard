@@ -77,7 +77,7 @@ function DashboardContent() {
       return allPages.length + 1;
     },
     retry: (failureCount, error) => {
-      const apiError = error as GitHubApiError;
+      const apiError = error as unknown as GitHubApiError;
       return apiError.status !== 404 && apiError.status !== 403 && failureCount < 2;
     },
   });
@@ -89,7 +89,7 @@ function DashboardContent() {
     queryFn: () => fetchOrgMetadata(debouncedOrg, token || undefined),
     enabled: debouncedOrg.length > 0,
     retry: (failureCount, error) => {
-      const apiError = error as GitHubApiError;
+      const apiError = error as unknown as GitHubApiError;
       return apiError.status !== 404 && apiError.status !== 403 && failureCount < 2;
     },
   });
