@@ -1,0 +1,2 @@
+[00:00:02.625] Server  LOG     ✓ Ready in 2.4s
+[00:00:11.067] Server  WARN    ⚠ The "images.domains" configuration is deprecated. Please use "images.remotePatterns" configuration instead.
