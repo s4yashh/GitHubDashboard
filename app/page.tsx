@@ -32,17 +32,23 @@ function DashboardContent() {
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [selectedRepo, setSelectedRepo] = useState<GitHubRepo | null>(null);
   
-  const debouncedOrg = useDebounce(org, 300);
+  const debouncedOrg = useDebounce(org, 500);
 
-  // Update URL when org changes
+  // Update URL when org changes (without triggering page re-render)
   useEffect(() => {
     if (debouncedOrg) {
       const params = new URLSearchParams(searchParams.toString());
       params.set('org', debouncedOrg);
-      router.push(`?${params.toString()}`, { scroll: false });
+      const newUrl = `?${params.toString()}`;
+      
+      // Use history.replaceState instead of router.push to avoid re-renders
+      if (typeof window !== 'undefined') {
+        window.history.replaceState({}, '', newUrl);
+      }
+      
       setLastOrgSearch(debouncedOrg);
     }
-  }, [debouncedOrg, router, searchParams]);
+  }, [debouncedOrg, searchParams]);
 
   // Initialize org from URL on mount
   useEffect(() => {
@@ -76,10 +82,6 @@ function DashboardContent() {
       }
       return allPages.length + 1;
     },
-    retry: (failureCount, error) => {
-      const apiError = error as unknown as GitHubApiError;
-      return apiError.status !== 404 && apiError.status !== 403 && failureCount < 2;
-    },
   });
 
   const {
@@ -88,10 +90,6 @@ function DashboardContent() {
     queryKey: ['org-metadata', debouncedOrg],
     queryFn: () => fetchOrgMetadata(debouncedOrg, token || undefined),
     enabled: debouncedOrg.length > 0,
-    retry: (failureCount, error) => {
-      const apiError = error as unknown as GitHubApiError;
-      return apiError.status !== 404 && apiError.status !== 403 && failureCount < 2;
-    },
   });
 
   const allRepos = data?.pages.flat() || [];
