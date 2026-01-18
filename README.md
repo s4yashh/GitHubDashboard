@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GitHub Dashboard
 
-## Getting Started
+This is my **Task 1 project** – a GitHub Organization Dashboard built using **React + TypeScript**.
 
-First, run the development server:
+The idea of this project is simple:  
+you type a GitHub organization name and it shows all the repositories of that organization in a clean UI.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What this project does
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Search any GitHub organization (example: `google`, `vercel`, `microsoft`)
+- Fetch repositories using the GitHub public API
+- Show repo details like:
+  - Repository name
+  - Description
+  - Stars ⭐
+  - Forks 🍴
+  - Last updated date
+- Infinite scroll (loads more repos as you scroll)
+- Sorting options:
+  - By stars
+  - By forks
+  - By recent activity
+- Handles empty states and errors (404, rate limit, etc.)
+- Responsive UI (works on mobile and desktop)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend Framework & Build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Next.js 16.1.3** - React framework with built-in optimization
+- **React 19.2.3** - UI library
+- **TypeScript 5** - Type-safe JavaScript
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Data & State Management
 
-## Deploy on Vercel
+- **TanStack React Query 5.90.19** - Server state management and caching
+- **React DOM 19.2.3** - DOM rendering library
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Styling & UI
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **PostCSS 4** - CSS transformation
+- **Lucide React 0.562.0** - Icon library
+
+### Data Visualization
+
+- **Recharts 3.6.0** - Charting library for repository statistics
+
+### Development Tools
+
+- **ESLint 9** - Code linting
+- **TypeScript 5** - Static type checking
+
+---
+
+## Why I built it this way
+
+The focus of this task was:
+
+- **Framework Choice**: Next.js provides built-in optimization, routing, and server-side capabilities
+- **Type Safety**: TypeScript ensures code reliability and better developer experience
+- **State Management**: TanStack React Query handles API data caching and synchronization efficiently
+- **Styling**: Tailwind CSS provides rapid UI development with utility-first approach
+- **Performance**: Next.js Turbopack compiler, optimized bundle size, and infinite scroll for better UX
+- **Visualization**: Recharts displays repository statistics in an interactive chart format
+- **Clean Architecture**: Component-based structure with proper separation of concerns
+- **Error Handling**: Robust retry logic and error boundaries for API failures
+- **Responsive Design**: Mobile-first approach ensures works across all devices
+
+No unnecessary libraries, just core React concepts.
+
+---
