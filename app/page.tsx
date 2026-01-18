@@ -144,7 +144,7 @@ function DashboardContent() {
 
         {isError && error && (
           <ErrorState
-            error={error as GitHubApiError}
+            error={error as unknown as GitHubApiError}
             onRetry={handleRetry}
           />
         )}

@@ -25,7 +25,7 @@ export function SearchInput({ org, onOrgChange, token }: SearchInputProps) {
     queryFn: () => fetchOrgMetadata(org, token || undefined),
     enabled: org.length > 0,
     retry: (failureCount, error) => {
-      const apiError = error as GitHubApiError;
+      const apiError = error as unknown as GitHubApiError;
       return apiError.status !== 404 && apiError.status !== 403 && failureCount < 2;
     },
   });
