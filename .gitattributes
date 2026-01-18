@@ -1,0 +1,13 @@
+# Explicitly mark configuration files as non-source code
+*.mjs linguist-language=JavaScript
+postcss.config.mjs linguist-generated=true
+eslint.config.mjs linguist-generated=true
+next.config.ts linguist-generated=true
+
+# Mark TypeScript files
+*.ts linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
+
+# Mark dependencies folder
+node_modules/ linguist-vendored=true
+.next/ linguist-generated=true
