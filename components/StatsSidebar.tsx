@@ -2,6 +2,7 @@
 
 import { Star, GitFork, Calendar, Code2, Users, Lock, Globe, X, TrendingUp } from 'lucide-react';
 import type { GitHubRepo, GitHubOrg } from '@/types/github';
+import { LanguageChart } from './LanguageChart';
 
 interface StatsSidebarProps {
   repos: GitHubRepo[];
@@ -230,6 +231,10 @@ export function StatsSidebar({ repos, orgData, selectedRepo, onClose }: StatsSid
               ))}
             </div>
           </div>
+        )}
+
+        {repos.length > 0 && (
+          <LanguageChart repos={repos} />
         )}
 
         {orgData && (
