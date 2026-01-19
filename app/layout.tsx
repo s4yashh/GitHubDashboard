@@ -9,7 +9,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GitHub Organization Dashboard",
+  title: "GitOrg",
   description: "Explore GitHub Organizations and their repositories",
 };
 
