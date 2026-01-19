@@ -141,6 +141,18 @@ function DashboardContent() {
           </div>
         </div>
 
+        {/* Sticky sort section */}
+        {!isLoading && !isError && debouncedOrg && allRepos.length > 0 && (
+          <div className="sticky top-[180px] z-30 bg-zinc-50 dark:bg-black -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 border-b border-zinc-200 dark:border-zinc-800">
+            <SortControls 
+              sortBy={sortBy} 
+              sortOrder={sortOrder}
+              onSortChange={setSortBy}
+              onOrderChange={setSortOrder}
+            />
+          </div>
+        )}
+
         <div className="py-6">
           {isLoading && !data && <SkeletonLoader />}
 
@@ -154,14 +166,7 @@ function DashboardContent() {
           {!isLoading && !isError && debouncedOrg && (
             <>
               {allRepos.length > 0 && (
-                <div className="sticky top-32 z-30 bg-zinc-50 dark:bg-black mb-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 border-b border-zinc-200 dark:border-zinc-800">
-                  <SortControls 
-                    sortBy={sortBy} 
-                    sortOrder={sortOrder}
-                    onSortChange={setSortBy}
-                    onOrderChange={setSortOrder}
-                  />
-                </div>
+                <></>
               )}
               <RepoList
                 repos={allRepos}
