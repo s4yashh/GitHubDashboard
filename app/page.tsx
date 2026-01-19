@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Suspense, useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
@@ -121,16 +122,25 @@ function DashboardContent() {
   return (
     <div className="flex min-h-screen bg-zinc-50 dark:bg-black font-sans">
       {/* Left content area with infinite scroll */}
-      <div className="flex-1 max-w-4xl px-4 sm:px-6 lg:px-8 lg:mr-80 xl:mr-96">
+      <div className="flex-1 max-w-6xl px-4 sm:px-6 lg:px-8 lg:mr-96 xl:mr-[28rem]">
         {/* Sticky header */}
         <div className="sticky top-0 z-40 bg-zinc-50 dark:bg-black pt-8 pb-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-b border-zinc-200 dark:border-zinc-800">
-          <div className="mb-6">
-            <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
-              GitHub Organization Dashboard
-            </h1>
-            <p className="text-zinc-600 dark:text-zinc-400">
-              Explore repositories from any GitHub organization
-            </p>
+          <div className="mb-6 flex items-start gap-4">
+            <Image
+              src="/logo.png"
+              alt="GitOrg Logo"
+              width={40}
+              height={40}
+              className="rounded-md brightness-0 invert"
+            />
+            <div>
+              <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+                GitHub Organization Dashboard
+              </h1>
+              <p className="text-zinc-600 dark:text-zinc-400">
+                Explore repositories from any GitHub organization
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -165,9 +175,6 @@ function DashboardContent() {
 
           {!isLoading && !isError && debouncedOrg && (
             <>
-              {allRepos.length > 0 && (
-                <></>
-              )}
               <RepoList
                 repos={allRepos}
                 sortBy={sortBy}
@@ -199,7 +206,7 @@ function DashboardContent() {
 
       {/* Fixed right sidebar */}
       {debouncedOrg && !isLoading && !isError && (
-        <div className="hidden lg:block fixed right-0 top-0 w-80 xl:w-96 h-screen overflow-y-auto">
+        <div className="hidden lg:block fixed right-0 top-0 w-96 xl:w-[28rem] h-screen overflow-y-auto bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-black border-l border-zinc-200 dark:border-zinc-800">
           <StatsSidebar
             repos={allRepos}
             orgData={orgData || null}
