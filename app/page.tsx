@@ -165,6 +165,9 @@ function DashboardContent() {
 
           {!isLoading && !isError && debouncedOrg && (
             <>
+              {allRepos.length > 0 && (
+                <></>
+              )}
               <RepoList
                 repos={allRepos}
                 sortBy={sortBy}
