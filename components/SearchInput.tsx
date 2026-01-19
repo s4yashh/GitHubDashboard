@@ -63,7 +63,7 @@ export function SearchInput({ org, onOrgChange, token }: SearchInputProps) {
         </div>
         <button
           type="submit"
-          className="px-6 py-2 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors font-medium flex items-center gap-2"
+          className="px-6 py-2 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-lg hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors font-medium flex items-center gap-2 cursor-pointer"
         >
           <Search className="w-4 h-4" />
           Search

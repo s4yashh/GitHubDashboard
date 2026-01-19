@@ -54,7 +54,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, isLoading }:
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1 || isLoading}
-        className="p-2 border border-zinc-200 dark:border-zinc-800 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="p-2 border border-zinc-200 dark:border-zinc-800 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
         aria-label="Previous page"
       >
         <ChevronLeft className="w-4 h-4" />
@@ -75,7 +75,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, isLoading }:
             key={pageNum}
             onClick={() => onPageChange(pageNum)}
             disabled={isLoading}
-            className={`px-3 py-1.5 min-w-[2.5rem] border rounded-md transition-colors ${
+            className={`px-3 py-1.5 min-w-[2.5rem] border rounded-md transition-colors cursor-pointer ${
               currentPage === pageNum
                 ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black border-zinc-900 dark:border-zinc-100'
                 : 'border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed'
@@ -89,7 +89,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, isLoading }:
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages || isLoading}
-        className="p-2 border border-zinc-200 dark:border-zinc-800 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="p-2 border border-zinc-200 dark:border-zinc-800 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
         aria-label="Next page"
       >
         <ChevronRight className="w-4 h-4" />

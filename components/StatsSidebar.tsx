@@ -43,7 +43,7 @@ export function StatsSidebar({ repos, orgData, selectedRepo, onClose }: StatsSid
             </h2>
             <button
               onClick={onClose}
-              className="p-1.5 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-md text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+              className="p-1.5 hover:bg-zinc-200 dark:hover:bg-zinc-700 rounded-md text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors cursor-pointer"
               aria-label="Close details"
             >
               <X className="w-4 h-4" />
@@ -65,7 +65,7 @@ export function StatsSidebar({ repos, orgData, selectedRepo, onClose }: StatsSid
               href={selectedRepo.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 text-sm text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 text-sm text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors cursor-pointer"
             >
               <Globe className="w-4 h-4" />
               View on GitHub

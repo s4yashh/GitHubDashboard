@@ -33,7 +33,7 @@ export function TokenInput({ onTokenChange }: TokenInputProps) {
     <div className="relative">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 underline"
+        className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 underline cursor-pointer"
       >
         {getStoredToken() ? 'Update Token' : 'Add Personal Access Token'}
       </button>
@@ -52,14 +52,14 @@ export function TokenInput({ onTokenChange }: TokenInputProps) {
           <div className="flex gap-2">
             <button
               onClick={handleSave}
-              className="flex-1 px-3 py-1.5 text-sm bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-md hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
+              className="flex-1 px-3 py-1.5 text-sm bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black rounded-md hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer"
             >
               Save
             </button>
             {getStoredToken() && (
               <button
                 onClick={handleClear}
-                className="px-3 py-1.5 text-sm border border-zinc-200 dark:border-zinc-800 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                className="px-3 py-1.5 text-sm border border-zinc-200 dark:border-zinc-800 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
               >
                 Clear
               </button>

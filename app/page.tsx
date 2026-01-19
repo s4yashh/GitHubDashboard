@@ -121,70 +121,75 @@ function DashboardContent() {
   return (
     <div className="flex min-h-screen bg-zinc-50 dark:bg-black font-sans">
       {/* Left content area with infinite scroll */}
-      <div className="flex-1 max-w-4xl px-4 py-8 sm:px-6 lg:px-8 lg:mr-80 xl:mr-96">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
-            GitHub Organization Dashboard
-          </h1>
-          <p className="text-zinc-600 dark:text-zinc-400">
-            Explore repositories from any GitHub organization
-          </p>
-        </div>
-
-        <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex-1">
-            <SearchInput org={org} onOrgChange={handleOrgChange} token={token} />
-          </div>
-          <TokenInput onTokenChange={handleTokenChange} />
-        </div>
-
-        {isLoading && !data && <SkeletonLoader />}
-
-        {isError && error && (
-          <ErrorState
-            error={error as unknown as GitHubApiError}
-            onRetry={handleRetry}
-          />
-        )}
-
-        {!isLoading && !isError && debouncedOrg && (
-          <>
-            {allRepos.length > 0 && (
-              <div className="mb-6">
-                <SortControls 
-                  sortBy={sortBy} 
-                  sortOrder={sortOrder}
-                  onSortChange={setSortBy}
-                  onOrderChange={setSortOrder}
-                />
-              </div>
-            )}
-            <RepoList
-              repos={allRepos}
-              sortBy={sortBy}
-              sortOrder={sortOrder}
-              onSortChange={setSortBy}
-              selectedRepoId={selectedRepo?.id || null}
-              onRepoClick={handleRepoClick}
-            />
-            
-            {allRepos.length > 0 && (
-              <InfiniteScrollTrigger
-                onIntersect={() => fetchNextPage()}
-                hasMore={hasNextPage || false}
-                isLoading={isFetchingNextPage}
-              />
-            )}
-          </>
-        )}
-
-        {!debouncedOrg && !isLoading && (
-          <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+      <div className="flex-1 max-w-4xl px-4 sm:px-6 lg:px-8 lg:mr-80 xl:mr-96">
+        {/* Sticky header */}
+        <div className="sticky top-0 z-40 bg-zinc-50 dark:bg-black pt-8 pb-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-b border-zinc-200 dark:border-zinc-800">
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+              GitHub Organization Dashboard
+            </h1>
             <p className="text-zinc-600 dark:text-zinc-400">
-              Enter an organization name to get started
+              Explore repositories from any GitHub organization
             </p>
           </div>
-        )}
+
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex-1">
+              <SearchInput org={org} onOrgChange={handleOrgChange} token={token} />
+            </div>
+            <TokenInput onTokenChange={handleTokenChange} />
+          </div>
+        </div>
+
+        <div className="py-6">
+          {isLoading && !data && <SkeletonLoader />}
+
+          {isError && error && (
+            <ErrorState
+              error={error as unknown as GitHubApiError}
+              onRetry={handleRetry}
+            />
+          )}
+
+          {!isLoading && !isError && debouncedOrg && (
+            <>
+              {allRepos.length > 0 && (
+                <div className="sticky top-32 z-30 bg-zinc-50 dark:bg-black mb-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 border-b border-zinc-200 dark:border-zinc-800">
+                  <SortControls 
+                    sortBy={sortBy} 
+                    sortOrder={sortOrder}
+                    onSortChange={setSortBy}
+                    onOrderChange={setSortOrder}
+                  />
+                </div>
+              )}
+              <RepoList
+                repos={allRepos}
+                sortBy={sortBy}
+                sortOrder={sortOrder}
+                onSortChange={setSortBy}
+                selectedRepoId={selectedRepo?.id || null}
+                onRepoClick={handleRepoClick}
+              />
+              
+              {allRepos.length > 0 && (
+                <InfiniteScrollTrigger
+                  onIntersect={() => fetchNextPage()}
+                  hasMore={hasNextPage || false}
+                  isLoading={isFetchingNextPage}
+                />
+              )}
+            </>
+          )}
+
+          {!debouncedOrg && !isLoading && (
+            <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
+              <p className="text-zinc-600 dark:text-zinc-400">
+                Enter an organization name to get started
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Fixed right sidebar */}

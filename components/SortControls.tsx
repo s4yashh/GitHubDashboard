@@ -25,7 +25,7 @@ export function SortControls({ sortBy, sortOrder, onSortChange, onOrderChange }:
           <button
             key={option.value}
             onClick={() => onSortChange(option.value)}
-            className={`px-3 py-1.5 text-sm rounded-md transition-colors flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-sm rounded-md transition-colors flex items-center gap-1.5 cursor-pointer ${
               sortBy === option.value
                 ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black'
                 : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700'
@@ -39,7 +39,7 @@ export function SortControls({ sortBy, sortOrder, onSortChange, onOrderChange }:
       <div className="flex items-center gap-1 border-l border-zinc-200 dark:border-zinc-800 pl-3">
         <button
           onClick={() => onOrderChange('asc')}
-          className={`p-1.5 rounded-md transition-colors ${
+          className={`p-1.5 rounded-md transition-colors cursor-pointer ${
             sortOrder === 'asc'
               ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black'
               : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'
@@ -50,7 +50,7 @@ export function SortControls({ sortBy, sortOrder, onSortChange, onOrderChange }:
         </button>
         <button
           onClick={() => onOrderChange('desc')}
-          className={`p-1.5 rounded-md transition-colors ${
+          className={`p-1.5 rounded-md transition-colors cursor-pointer ${
             sortOrder === 'desc'
               ? 'bg-zinc-900 dark:bg-zinc-100 text-white dark:text-black'
               : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'
