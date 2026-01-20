@@ -121,88 +121,114 @@ function DashboardContent() {
 
   return (
     <div className="flex min-h-screen bg-zinc-50 dark:bg-black font-sans">
-      {/* Left content area with infinite scroll */}
-      <div className="flex-1 max-w-6xl px-4 sm:px-6 lg:px-8 lg:mr-96 xl:mr-[28rem]">
-        {/* Sticky header */}
-        <div className="sticky top-0 z-40 bg-zinc-50 dark:bg-black pt-8 pb-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-b border-zinc-200 dark:border-zinc-800">
-          <div className="mb-6 flex items-start gap-4">
-            <Image
-              src="/logo.png"
-              alt="GitOrg Logo"
-              width={40}
-              height={40}
-              className="rounded-md brightness-0 invert"
-            />
-            <div>
-              <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+      {/* Centered search hero - shown when no org selected */}
+      {!debouncedOrg && !isLoading && (
+        <div className="flex-1 flex flex-col items-center px-4 pt-50">
+          <div className="w-full max-w-2xl">
+            <div className="mb-8 text-center">
+              <div className="flex justify-center mb-6">
+                <Image
+                  src="/logo.png"
+                  alt="GitOrg Logo"
+                  width={80}
+                  height={80}
+                  className="rounded-lg brightness-0 invert shadow-lg"
+                />
+              </div>
+              <h1 className="text-5xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
                 GitHub Organization Dashboard
               </h1>
-              <p className="text-zinc-600 dark:text-zinc-400">
+              <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-8">
                 Explore repositories from any GitHub organization
               </p>
             </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div className="flex-1">
+            
+            <div className="space-y-4">
               <SearchInput org={org} onOrgChange={handleOrgChange} token={token} />
+              <div className="flex justify-center">
+                <TokenInput onTokenChange={handleTokenChange} />
+              </div>
             </div>
-            <TokenInput onTokenChange={handleTokenChange} />
           </div>
         </div>
+      )}
 
-        {/* Sticky sort section */}
-        {!isLoading && !isError && debouncedOrg && allRepos.length > 0 && (
-          <div className="sticky top-[180px] z-30 bg-zinc-50 dark:bg-black -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 border-b border-zinc-200 dark:border-zinc-800">
-            <SortControls 
-              sortBy={sortBy} 
-              sortOrder={sortOrder}
-              onSortChange={setSortBy}
-              onOrderChange={setSortOrder}
-            />
+      {/* Main content - shown after org is selected */}
+      {debouncedOrg && (
+        <div className="flex-1 max-w-6xl px-4 sm:px-6 lg:px-8 lg:mr-96 xl:mr-[28rem]">
+          {/* Sticky header */}
+          <div className="sticky top-0 z-40 bg-zinc-50 dark:bg-black pt-8 pb-6 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 border-b border-zinc-200 dark:border-zinc-800">
+            <div className="mb-6 flex items-start gap-4">
+              <Image
+                src="/logo.png"
+                alt="GitOrg Logo"
+                width={40}
+                height={40}
+                className="rounded-md brightness-0 invert"
+              />
+              <div>
+                <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+                  GitHub Organization Dashboard
+                </h1>
+                <p className="text-zinc-600 dark:text-zinc-400">
+                  Explore repositories from any GitHub organization
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex-1">
+                <SearchInput org={org} onOrgChange={handleOrgChange} token={token} />
+              </div>
+              <TokenInput onTokenChange={handleTokenChange} />
+            </div>
           </div>
-        )}
 
-        <div className="py-6">
-          {isLoading && !data && <SkeletonLoader />}
-
-          {isError && error && (
-            <ErrorState
-              error={error as unknown as GitHubApiError}
-              onRetry={handleRetry}
-            />
-          )}
-
-          {!isLoading && !isError && debouncedOrg && (
-            <>
-              <RepoList
-                repos={allRepos}
-                sortBy={sortBy}
+          {/* Sticky sort section */}
+          {!isLoading && !isError && allRepos.length > 0 && (
+            <div className="sticky top-[180px] z-30 bg-zinc-50 dark:bg-black -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 border-b border-zinc-200 dark:border-zinc-800">
+              <SortControls 
+                sortBy={sortBy} 
                 sortOrder={sortOrder}
                 onSortChange={setSortBy}
-                selectedRepoId={selectedRepo?.id || null}
-                onRepoClick={handleRepoClick}
+                onOrderChange={setSortOrder}
               />
-              
-              {allRepos.length > 0 && (
-                <InfiniteScrollTrigger
-                  onIntersect={() => fetchNextPage()}
-                  hasMore={hasNextPage || false}
-                  isLoading={isFetchingNextPage}
-                />
-              )}
-            </>
-          )}
-
-          {!debouncedOrg && !isLoading && (
-            <div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-              <p className="text-zinc-600 dark:text-zinc-400">
-                Enter an organization name to get started
-              </p>
             </div>
           )}
+
+          <div className="py-6">
+            {isLoading && !data && <SkeletonLoader />}
+
+            {isError && error && (
+              <ErrorState
+                error={error as unknown as GitHubApiError}
+                onRetry={handleRetry}
+              />
+            )}
+
+            {!isLoading && !isError && (
+              <>
+                <RepoList
+                  repos={allRepos}
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  onSortChange={setSortBy}
+                  selectedRepoId={selectedRepo?.id || null}
+                  onRepoClick={handleRepoClick}
+                />
+                
+                {allRepos.length > 0 && (
+                  <InfiniteScrollTrigger
+                    onIntersect={() => fetchNextPage()}
+                    hasMore={hasNextPage || false}
+                    isLoading={isFetchingNextPage}
+                  />
+                )}
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Fixed right sidebar */}
       {debouncedOrg && !isLoading && !isError && (
